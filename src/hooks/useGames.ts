@@ -22,7 +22,7 @@ interface FetchGamesResponse {
   results: Game[];
 }
 
-const useGames = (selectedGenre : Genre | null, selectedPlatform : Platform | null) => {
+const useGames = (selectedGenre : Genre | null, selectedPlatform : Platform | null, selectedSortOrder : string ) => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -31,6 +31,7 @@ const useGames = (selectedGenre : Genre | null, selectedPlatform : Platform | nu
     params: {
         genres: selectedGenre?.id,
         platforms: selectedPlatform?.id,
+        ordering: selectedSortOrder,
     }
   }
 
@@ -53,7 +54,7 @@ const useGames = (selectedGenre : Genre | null, selectedPlatform : Platform | nu
     return () => {
       controller.abort();
     };
-  }, [selectedGenre, selectedPlatform]);
+  }, [selectedGenre, selectedPlatform, selectedSortOrder]);
 
   return { games, error, loading };
 };
