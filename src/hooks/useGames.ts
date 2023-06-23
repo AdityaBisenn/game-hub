@@ -1,5 +1,6 @@
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
+import { GameQuery } from "../App";
 import apiClient from "../services/api-client";
 import { Genre } from "./useGenres";
 
@@ -22,16 +23,18 @@ interface FetchGamesResponse {
   results: Game[];
 }
 
-const useGames = (selectedGenre : Genre | null, selectedPlatform : Platform | null, selectedSortOrder : string ) => {
+
+const useGames = (gameQuery : GameQuery ) => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const requestConfig= {
     params: {
-        genres: selectedGenre?.id,
-        platforms: selectedPlatform?.id,
-        ordering: selectedSortOrder,
+        genres: gameQuery.genre?.id,
+        platforms: gameQuery.platform?.id,
+        ordering: gameQuery.sortOrder,
+        search: gameQuery.searchText,
     }
   }
 
@@ -54,7 +57,7 @@ const useGames = (selectedGenre : Genre | null, selectedPlatform : Platform | nu
     return () => {
       controller.abort();
     };
-  }, [selectedGenre, selectedPlatform, selectedSortOrder]);
+  }, [gameQuery]);
 
   return { games, error, loading };
 };

@@ -12,7 +12,7 @@ interface Props {
 };
 
 const GameGrid = ({gameQuery}:Props) => {
-  const { games, error, loading } = useGames(gameQuery.genre,gameQuery.platform,gameQuery.sortOrder);
+  const { games, error, loading } = useGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8,9];
 
   return (
