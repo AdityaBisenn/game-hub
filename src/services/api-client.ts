@@ -3,6 +3,6 @@ import axios from "axios";
 export default axios.create({
     baseURL: "https://api.rawg.io/api",
     params: {
-        key: "8b69d037e4674d9f9e285f6d538e0e0b"
+        key: "d9c993f7f421484a861e942d7ab1493f"
     }
 })
