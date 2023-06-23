@@ -22,14 +22,15 @@ interface FetchGamesResponse {
   results: Game[];
 }
 
-const useGames = (selectedGenre : Genre | null) => {
+const useGames = (selectedGenre : Genre | null, selectedPlatform : Platform | null) => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const requestConfig= {
     params: {
-        genres: selectedGenre?.id
+        genres: selectedGenre?.id,
+        platforms: selectedPlatform?.id,
     }
   }
 
@@ -52,7 +53,7 @@ const useGames = (selectedGenre : Genre | null) => {
     return () => {
       controller.abort();
     };
-  }, [selectedGenre]);
+  }, [selectedGenre, selectedPlatform]);
 
   return { games, error, loading };
 };
